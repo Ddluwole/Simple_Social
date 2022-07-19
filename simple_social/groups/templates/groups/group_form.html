@@ -1,13 +1,23 @@
 {% extends 'groups/group_base.html' %}
 {% load bootstrap5 %}
 
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
 {% block group_content %}
 
 <h4>Create a new group!</h4>
 
-<form action="{% url 'grouos:create' %}" method="post" id="groupForm">
+<form action="{% url 'groups:create' %}" method="post" id="groupForm">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <input type="submit" class="btn btn-primary btn-large" value="create">
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      Submit
+    </button>
+  {% endbuttons %}
 </form>
 {% endblock %}

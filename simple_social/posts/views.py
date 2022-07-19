@@ -21,7 +21,7 @@ class UserPost(ListView):
 
     def get_queryset(self):
         try:
-            self.post.user = User.objects.prefetch_related('posts').get(username__iexact= self.kwargs.get('username'))
+            self.post_user = User.objects.prefetch_related('posts').get(username__iexact= self.kwargs.get('username'))
 
         except User.DoesNotExist:
             raise Http404
@@ -39,7 +39,7 @@ class PostDetail(SelectRelatedMixin, DetailView):
     select_related = ('user', 'group')
 
     def get_queryset(self):
-        queryset = super.get_queryset()
+        queryset = super().get_queryset()
         return queryset.filter(user__username__iexact = self.kwargs.get('username'))
 
 class CreatePost(LoginRequiredMixin, SelectRelatedMixin, CreateView):
